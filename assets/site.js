@@ -220,7 +220,7 @@ function fit(el, ratio = 1) {
 }
 function fitAll() {
   const mob = innerWidth <= 720;
-  fit($('#footBig'), .97);
+  fit($('#footBig'), .86);
 }
 
 /* ---------- split hero name ---------- */
@@ -358,7 +358,7 @@ function reveals(scope) {
 }
 reveals(document);
 if (MOTION) {
-  ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', end: 'bottom bottom', scrub: true, animation: gsap.fromTo('#footBig', { yPercent: 40 }, { yPercent: 0, ease: 'none' }) });
+  ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', end: 'bottom bottom', scrub: true, animation: gsap.fromTo('#footBig > span', { yPercent: 70 }, { yPercent: 0, stagger: .06, ease: 'none' }) });
 }
 
 /* ---------- hero idle: breathing + pointer parallax ---------- */

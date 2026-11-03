@@ -511,3 +511,18 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
   .hs__tag{right:8px;bottom:auto;top:66%}
 }
 @media (prefers-reduced-motion:reduce){.hs__ring{animation:none}}
+
+/* ---------- footer wordmark (frosted, ribbed glass) ---------- */
+.fwm{position:relative;margin-top:clamp(40px,6vw,90px);overflow:hidden;isolation:isolate;display:flex;justify-content:center;padding:.04em 0 0;
+  background:radial-gradient(120% 95% at 50% 125%,rgba(190,150,96,1) 0%,rgba(214,186,144,.75) 30%,rgba(236,222,200,.4) 56%,rgba(255,255,255,0) 78%)}
+.fwm .foot__big{display:flex;font-weight:800;font-stretch:100%;letter-spacing:-.055em;line-height:.82;margin:0;padding:0 0 .14em;text-transform:lowercase}
+.fwm .foot__big span{display:inline-block;padding:.12em .1em .2em;margin:-.12em -.1em -.2em;color:transparent;
+  background:linear-gradient(180deg,#0b0b0b 0%,#2a2622 42%,rgba(90,74,52,.75) 72%,rgba(150,120,80,.45) 100%);-webkit-background-clip:text;background-clip:text}
+.fwm .flute{position:absolute;inset:0;z-index:2;pointer-events:none;-webkit-backdrop-filter:blur(var(--b));backdrop-filter:blur(var(--b));
+  -webkit-mask-image:linear-gradient(to bottom,transparent var(--s),#000 var(--e)),repeating-linear-gradient(to bottom,#000 0 var(--h),transparent var(--h) calc(var(--h) * 2));-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(to bottom,transparent var(--s),#000 var(--e)),repeating-linear-gradient(to bottom,#000 0 var(--h),transparent var(--h) calc(var(--h) * 2));mask-composite:intersect}
+.fwm .flute.a{--b:3px;--s:34%;--e:58%;--h:10px}
+.fwm .flute.b{--b:10px;--s:52%;--e:80%;--h:7px;top:3px}
+.fwm .flute.c{--b:20px;--s:70%;--e:96%;--h:5px;top:6px}
+.fwm .flute.l{-webkit-backdrop-filter:none;backdrop-filter:none;--s:36%;--e:70%;--h:10px;background:repeating-linear-gradient(to bottom,rgba(0,0,0,.05) 0 1px,transparent 1px 10px)}
+.foot__bar{position:relative;z-index:3}
