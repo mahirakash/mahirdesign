@@ -400,18 +400,29 @@ function showHome(anchor, smooth) {
   if (el) requestAnimationFrame(() => requestAnimationFrame(() => scrollToEl(el, fromPage || !smooth)));
   else if (anchor === 'top') scrollToEl(0, fromPage);
 }
-function route(smooth) { const ph = location.pathname.replace(/^\/+|\/+$/g, ''); const h = decodeURIComponent((location.hash || '').slice(1)) || (isPage(ph) ? ph : ''); if (isPage(h)) showPage(h); else showHome(h, smooth); }
+// Clean URLs: pages live at /signaldesk, /team, /case-skribe…; home sections scroll without touching the URL.
+const pathKey = () => decodeURIComponent(location.pathname.replace(/^\/+|\/+$/g, ''));
+const go = (path, push) => { if (location.pathname + location.hash !== path) history[push ? 'pushState' : 'replaceState'](null, '', path); };
+function route(smooth) {
+  let key = pathKey();
+  const legacy = decodeURIComponent((location.hash || '').slice(1));       // old #links still work
+  if (!isPage(key) && legacy) {
+    if (isPage(legacy)) { key = legacy; go('/' + legacy, false); }
+    else { go('/', false); showHome(legacy, smooth); return; }
+  }
+  if (isPage(key)) showPage(key); else showHome('', smooth);
+}
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#"]'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
-  const h = a.getAttribute('href'); if (h === '#') return;
+  const id = a.getAttribute('href').slice(1); if (!id) return;
   e.preventDefault(); setMenu(false);
-  if (h === '#sd-try') { const el = $('#sd-try'); el && scrollToEl(el); return; }
-  if (h === '#contact') { const el = $('#contact'); el && scrollToEl(el); setActive('contact'); return; }
-  if (location.hash !== h) history.pushState(null, '', h);
-  route(true);
+  if (id === 'sd-try' || id === 'contact') { const el = document.getElementById(id); el && scrollToEl(el); setActive(id); return; }
+  if (isPage(id)) { go('/' + id, true); showPage(id); return; }
+  const onPage = !page.hidden;
+  go('/', onPage);
+  showHome(id, true);
 });
 addEventListener('popstate', () => route(false));
-addEventListener('hashchange', () => route(false));
 
 homeMotion();
 if (location.hash || location.pathname.length > 1) route(false);
