@@ -462,3 +462,11 @@ homeMotion();
 if (location.hash || location.pathname.length > 1) route(false);
 runLoader();
 })();
+
+/* ---------- nav glass on scroll ---------- */
+(() => {
+  const nav = document.querySelector('.nav'); if (!nav) return;
+  const set = () => nav.classList.toggle('is-glass', scrollY > 40 || !document.getElementById('page').hidden);
+  addEventListener('scroll', set, { passive: true }); addEventListener('popstate', () => setTimeout(set, 50));
+  document.addEventListener('click', () => setTimeout(set, 80)); set();
+})();
