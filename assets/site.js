@@ -323,6 +323,10 @@ function homeMotion() {
   // hero parallax
   // hero: zoom into the name until the photo fills the screen
   const heroEl = $('#hero');
+  const aimH = () => { const n = $('#heroName'), h = $$('#heroName .chm')[2]; if (!n || !h) return;
+    const nr = n.getBoundingClientRect(), hr = h.getBoundingClientRect();
+    gsap.set(n, { transformOrigin: `${((hr.left + hr.width / 2 - nr.left) / nr.width) * 100}% 46%` }); };
+  aimH(); addEventListener('resize', aimH); document.fonts && document.fonts.ready.then(aimH);
   const htl = gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom bottom', scrub: 0.6, onUpdate: st => heroEl.classList.toggle('is-photo', st.progress > .88) } });
   htl.to('#heroName', { scale: 38, ease: 'power3.in', duration: 1 }, 0)
      .fromTo('#hxImg img', { scale: 1.18 }, { scale: 1, ease: 'none', duration: 1 }, 0)
