@@ -337,7 +337,8 @@ function homeMotion() {
   if (!MOTION) return;
   // hero parallax
   // hero: gentle parallax on the photo
-  homeTriggers.push(gsap.fromTo('#heroPhoto img', { yPercent: -3 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
+  homeTriggers.push(gsap.to('#heroMe', { yPercent: 8, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
+  homeTriggers.push(gsap.to('#heroDisc', { yPercent: 18, scale: .92, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
   homeTriggers.push(gsap.to('#heroCard', { y: -60, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
   // about word reveal
   const big = $('#aboutBig');
@@ -360,13 +361,28 @@ if (MOTION) {
   ScrollTrigger.create({ trigger: '.foot', start: 'top bottom', end: 'bottom bottom', scrub: true, animation: gsap.fromTo('#footBig', { yPercent: 40 }, { yPercent: 0, ease: 'none' }) });
 }
 
+/* ---------- hero idle: breathing + pointer parallax ---------- */
+function heroIdle() {
+  if (!MOTION || heroIdle.done) return; heroIdle.done = 1;
+  const img = $('#heroMe img'); if (!img) return;
+  gsap.to(img, { y: -8, rotation: .4, duration: 3.2, ease: 'sine.inOut', yoyo: true, repeat: -1, transformOrigin: '50% 100%' });
+  if (!matchMedia('(hover: hover)').matches) return;
+  const hero = $('#hero');
+  const mx = gsap.quickTo('#heroMe', 'x', { duration: 1, ease: 'power3' }), dx = gsap.quickTo('#heroDisc', 'x', { duration: 1.4, ease: 'power3' });
+  const ry = gsap.quickTo('#heroMe', 'rotationY', { duration: 1, ease: 'power3' });
+  hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(), k = (e.clientX - r.left) / r.width - .5; mx(k * 22); dx(k * -26); ry(k * 6); });
+  hero.addEventListener('pointerleave', () => { mx(0); dx(0); ry(0); });
+}
+
 /* ---------- intro ---------- */
 function intro() {
   if (!MOTION) return;
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   tl.fromTo('#heroTitle .line-mask > span', { yPercent: 110 }, { yPercent: 0, duration: 1.3, stagger: .09 })
-    .fromTo('#heroPhoto', { clipPath: 'inset(100% 0% 0% 0% round 22px)' }, { clipPath: 'inset(0% 0% 0% 0% round 22px)', duration: 1.5, ease: 'expo.inOut' }, 0)
-    .fromTo('#heroPhoto img', { scale: 1.3 }, { scale: 1.08, duration: 2 }, 0)
+    .fromTo('#heroDisc', { scale: 0 }, { scale: 1, duration: 1.6, ease: 'expo.inOut' }, 0)
+    .fromTo('#heroMe img', { yPercent: 18, opacity: 0, filter: 'blur(8px)' }, { yPercent: 0, opacity: 1, filter: 'blur(0px)', duration: 1.6 }, .35)
+    .fromTo('#heroRing, .hs__tag', { scale: .6, opacity: 0 }, { scale: 1, opacity: 1, duration: 1, stagger: .12, ease: 'back.out(1.6)' }, .9)
+    .add(heroIdle, 1.6)
     .fromTo('#heroCard', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, .7)
     .fromTo('.hs__kicker, .hs__row, .hs__avail', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .07 }, .35)
     .fromTo('.nav', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, '<');
