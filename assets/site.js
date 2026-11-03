@@ -220,7 +220,7 @@ function fit(el, ratio = 1) {
 }
 function fitAll() {
   const mob = innerWidth <= 720;
-  fit($('#heroName'), mob ? .98 : .985);
+  fit($('#heroName'), mob ? .96 : .94);
   fit($('#footBig'), .97);
 }
 
@@ -321,8 +321,14 @@ let homeTriggers = [];
 function homeMotion() {
   if (!MOTION) return;
   // hero parallax
-  homeTriggers.push(gsap.to('#heroName', { yPercent: -18, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
-  homeTriggers.push(gsap.fromTo('#heroPhoto img', { scale: 1.08, yPercent: 0 }, { scale: 1.16, yPercent: 6, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
+  // hero: zoom into the name until the photo fills the screen
+  const heroEl = $('#hero');
+  const htl = gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom bottom', scrub: 0.6, onUpdate: st => heroEl.classList.toggle('is-photo', st.progress > .88) } });
+  htl.to('#heroName', { scale: 38, ease: 'power3.in', duration: 1 }, 0)
+     .fromTo('#hxImg img', { scale: 1.18 }, { scale: 1, ease: 'none', duration: 1 }, 0)
+     .to('#hxMask', { opacity: 0, duration: .12, ease: 'none' }, .86)
+     .to('#hxShade', { opacity: 1, duration: .14, ease: 'none' }, .86);
+  homeTriggers.push(htl.scrollTrigger);
   // about word reveal
   const big = $('#aboutBig');
   if (big && !big.dataset.split) {
@@ -350,9 +356,8 @@ function intro() {
   if (!MOTION) return;
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
   tl.fromTo(chars, { yPercent: 110 }, { yPercent: 0, duration: 1.4, stagger: .06 })
-    .fromTo('#heroPhoto', { clipPath: 'inset(100% 0% 0% 0% round 16px)' }, { clipPath: 'inset(0% 0% 0% 0% round 16px)', duration: 1.5, ease: 'expo.inOut' }, '<.1')
-    .fromTo('#heroPhoto img', { scale: 1.35 }, { scale: 1.08, duration: 1.9 }, '<')
-    .fromTo('.hero__bottom > *, .hero__meta > *', { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .06 }, '<.35')
+    .fromTo('#hxImg img', { scale: 1.35 }, { scale: 1.18, duration: 2 }, 0)
+    .fromTo('.hx__top > *, .hx__bot > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .06 }, '<.5')
     .fromTo('.nav', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, '<');
 }
 function runLoader() {
