@@ -220,13 +220,10 @@ function fit(el, ratio = 1) {
 }
 function fitAll() {
   const mob = innerWidth <= 720;
-  fit($('#heroName'), mob ? .96 : .94);
   fit($('#footBig'), .97);
 }
 
 /* ---------- split hero name ---------- */
-const nameEl = $('#heroName');
-nameEl.innerHTML = [...nameEl.textContent].map(c => `<span class="chm" aria-hidden="true"><span class="ch">${c}</span></span>`).join('');
 fitAll();
 addEventListener('resize', () => { fitAll(); });
 document.fonts && document.fonts.ready.then(() => { fitAll(); HAS_GSAP && ScrollTrigger.refresh(); });
@@ -321,18 +318,9 @@ let homeTriggers = [];
 function homeMotion() {
   if (!MOTION) return;
   // hero parallax
-  // hero: zoom into the name until the photo fills the screen
-  const heroEl = $('#hero');
-  const aimH = () => { const n = $('#heroName'), h = $$('#heroName .chm')[2]; if (!n || !h) return;
-    const nr = n.getBoundingClientRect(), hr = h.getBoundingClientRect();
-    gsap.set(n, { transformOrigin: `${((hr.left + hr.width / 2 - nr.left) / nr.width) * 100}% 46%` }); };
-  aimH(); addEventListener('resize', aimH); document.fonts && document.fonts.ready.then(aimH);
-  const htl = gsap.timeline({ scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom bottom', scrub: 0.6, onUpdate: st => heroEl.classList.toggle('is-photo', st.progress > .88) } });
-  htl.to('#heroName', { scale: 38, ease: 'power3.in', duration: 1 }, 0)
-     .fromTo('#hxImg img', { scale: 1.18 }, { scale: 1, ease: 'none', duration: 1 }, 0)
-     .to('#hxMask', { opacity: 0, duration: .12, ease: 'none' }, .86)
-     .to('#hxShade', { opacity: 1, duration: .14, ease: 'none' }, .86);
-  homeTriggers.push(htl.scrollTrigger);
+  // hero: gentle parallax on the photo
+  homeTriggers.push(gsap.fromTo('#heroPhoto img', { yPercent: -3 }, { yPercent: 6, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
+  homeTriggers.push(gsap.to('#heroCard', { y: -60, ease: 'none', scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true } }).scrollTrigger);
   // about word reveal
   const big = $('#aboutBig');
   if (big && !big.dataset.split) {
@@ -356,12 +344,13 @@ if (MOTION) {
 
 /* ---------- intro ---------- */
 function intro() {
-  const chars = $$('#heroName .ch');
   if (!MOTION) return;
   const tl = gsap.timeline({ defaults: { ease: 'expo.out' } });
-  tl.fromTo(chars, { yPercent: 110 }, { yPercent: 0, duration: 1.4, stagger: .06 })
-    .fromTo('#hxImg img', { scale: 1.35 }, { scale: 1.18, duration: 2 }, 0)
-    .fromTo('.hx__top > *, .hx__bot > *', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .06 }, '<.5')
+  tl.fromTo('#heroTitle .line-mask > span', { yPercent: 110 }, { yPercent: 0, duration: 1.3, stagger: .09 })
+    .fromTo('#heroPhoto', { clipPath: 'inset(100% 0% 0% 0% round 22px)' }, { clipPath: 'inset(0% 0% 0% 0% round 22px)', duration: 1.5, ease: 'expo.inOut' }, 0)
+    .fromTo('#heroPhoto img', { scale: 1.3 }, { scale: 1.08, duration: 2 }, 0)
+    .fromTo('#heroCard', { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, .7)
+    .fromTo('.hs__kicker, .hs__row, .hs__avail', { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: 1.1, stagger: .07 }, .35)
     .fromTo('.nav', { y: -20, opacity: 0 }, { y: 0, opacity: 1, duration: 1 }, '<');
 }
 function runLoader() {
