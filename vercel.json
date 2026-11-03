@@ -1,10 +1,9 @@
 {
-  "cleanUrls": true,
   "rewrites": [
-    { "source": "/signaldesk", "destination": "/index.html" },
-    { "source": "/dashboards", "destination": "/index.html" },
-    { "source": "/team", "destination": "/index.html" },
-    { "source": "/case-:slug", "destination": "/index.html" }
+    { "source": "/signaldesk", "destination": "/" },
+    { "source": "/dashboards", "destination": "/" },
+    { "source": "/team", "destination": "/" },
+    { "source": "/case-:slug", "destination": "/" }
   ],
   "headers": [
     { "source": "/assets/(.*)", "headers": [{ "key": "Cache-Control", "value": "public, max-age=604800" }] }
