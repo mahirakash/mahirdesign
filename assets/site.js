@@ -48,19 +48,19 @@ const CASES = {
 const CASE_ORDER = ['skribe', 'vendidit', 'sendwin'];
 
 const DASHES = [
-  { name: 'Loopline Transit', cat: 'Fleet &amp; workforce operations admin', img: 'assets/dash/loopline.png',
+  { name: 'Loopline Transit', cat: 'Fleet &amp; workforce operations admin', img: 'assets/dash/loopline.webp',
     context: 'Internal admin for a regional shuttle and ride operator managing drivers, route managers, riders and a rental fleet.',
     problem: "Dispatch and people data lived in separate tools, so simple questions took too long: who's unassigned, which cars are idle, what a rider was charged.",
     solution: 'Headcount, fleet utilisation and recent trip activity in one view. Every metric is paired with its context, like assigned vs. total, so managers read capacity, not just counts.' },
-  { name: 'Bidhaus', cat: 'Marketplace &amp; auction analytics console', img: 'assets/dash/bidhaus.png',
+  { name: 'Bidhaus', cat: 'Marketplace &amp; auction analytics console', img: 'assets/dash/bidhaus.webp',
     context: 'Operations overview for an online auction and warehouse-lot marketplace, used by sales, pickup and payout teams.',
     problem: 'Auctions, buyer traffic and money were tracked in three different reports, which made it hard to tell a demand problem from a fulfilment problem.',
     solution: 'Pipeline, customer volume and cash movement side by side, with the pickup backlog surfaced as its own metric. One date range drives every panel, so week-over-week reads directly.' },
-  { name: 'Vantage', cat: 'Multi-product SaaS admin', img: 'assets/dash/vantage.png',
+  { name: 'Vantage', cat: 'Multi-product SaaS admin', img: 'assets/dash/vantage.webp',
     context: 'Default admin home for a SaaS platform where different teams care about different numbers.',
     problem: 'One generic dashboard ends up serving no role well.',
     solution: 'Organised in tiers: headline performance, then revenue against budget, then account-level detail. A repeatable card pattern (icon, value, label) keeps a dense screen scannable and lets modules be reordered without breaking.' },
-  { name: 'Casewell', cat: 'Legal practice &amp; case management dashboard', img: 'assets/dash/casewell.png',
+  { name: 'Casewell', cat: 'Legal practice &amp; case management dashboard', img: 'assets/dash/casewell.webp',
     context: 'Home screen for a case management tool used by small litigation firms to handle matters, contacts, documents and intake leads.',
     problem: "New firms stalled during setup, and users weren't sure where to add documents, tasks or contacts.",
     solution: "Onboarding becomes an explicit path on the home screen, record creation a row of typed shortcuts, and the day's schedule and lead pipeline stay in view. Three bands separate setup, creating and the day's work." }
