@@ -425,7 +425,7 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .mcard{display:flex;flex-direction:column;gap:18px}
 .mcard__img{border-radius:var(--r);overflow:hidden;aspect-ratio:16/10;background:#0e1a15}
 .mcard__img--soft{background:var(--soft);display:grid;place-items:center;padding:28px 28px 0}
-.mcard__img img{width:100%;height:100%;object-fit:cover;object-position:left top;transition:transform 1.1s var(--ease)}
+.mcard__img img{width:100%;height:100%;object-fit:cover;object-position:center;transition:transform 1.1s var(--ease)}
 .mcard__img--soft img{width:auto;height:100%;object-fit:contain;border-radius:10px 10px 0 0;box-shadow:0 20px 50px -20px rgba(0,0,0,.3)}
 .mcard:hover .mcard__img img{transform:scale(1.035)}
 .mcard__meta{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;border-top:1px solid var(--line);padding-top:16px}
