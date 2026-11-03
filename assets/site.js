@@ -228,6 +228,24 @@ fitAll();
 addEventListener('resize', () => { fitAll(); });
 document.fonts && document.fonts.ready.then(() => { fitAll(); HAS_GSAP && ScrollTrigger.refresh(); });
 
+/* ---------- logo marquee: fill any width, seamless loop ---------- */
+(() => {
+  const track = $('#mqTrack'); if (!track) return;
+  const base = track.querySelector('.marquee__set');
+  const SPEED = 90; // px per second
+  const build = () => {
+    $$('.marquee__set', track).forEach((el, i) => { if (i) el.remove(); });
+    const w = base.getBoundingClientRect().width; if (!w) return;
+    const copies = Math.max(2, Math.ceil((track.parentElement.clientWidth * 2) / w) + 1);
+    for (let i = 1; i < copies; i++) { const c = base.cloneNode(true); c.setAttribute('aria-hidden', 'true'); c.querySelectorAll('a').forEach(a => a.tabIndex = -1); track.append(c); }
+    track.style.setProperty('--mq-shift', w + 'px');
+    track.style.setProperty('--mq-dur', (w / SPEED) + 's');
+  };
+  const imgs = [...base.querySelectorAll('img')];
+  Promise.all(imgs.map(im => im.complete ? 0 : new Promise(r => { im.onload = im.onerror = r; }))).then(build);
+  let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(build, 200); });
+})();
+
 /* ---------- clocks ---------- */
 const fmtT = (tz, opts = {}) => new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZone: tz, ...opts }).format(new Date());
 function tick() {
