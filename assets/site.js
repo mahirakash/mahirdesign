@@ -139,43 +139,63 @@ function pTeam() {
 }
 
 function pDemo() {
-  const COS = window.COS || [];
-  return hero('<a href="#work">Work</a><span>/</span><span>SignalDesk</span>', 'SignalDesk. <span class="serif">Your business, in focus.</span>',
-    'My operations workspace for service businesses running more than one company. Bring in the files you already have, like job schedules, invoices and customer lists, and see the essentials in one calm place.',
-    `<div class="pg-cta"><a href="#sd-try" class="btn btn--ink">Try it below <span class="arr">↓</span></a><a href="https://cal.com/mahirakash/15min" target="_blank" rel="noopener" class="btn btn--line">Book a full demo</a></div>`) +
+  const SD = 'https://signaldesk.mahir.design';
+  return hero('<a href="#more">Products</a><span>/</span><span>SignalDesk</span>', 'SignalDesk. <span class="serif">Your business, in focus.</span>',
+    'An operations workspace for service businesses running more than one company. Bring in the files you already have and see the essentials in one calm place.',
+    `<div class="pg-cta"><a href="${SD}" target="_blank" rel="noopener" class="btn btn--ink">Open live demo <span class="arr">→</span></a><a href="https://cal.com/mahirakash/15min" target="_blank" rel="noopener" class="btn btn--line">Book a walkthrough</a></div>`) +
   `<section id="sd-try"><div class="wrap">
-    <div class="sd-frame rv"><div class="sd-bar"><i></i><i></i><i></i><span>SignalDesk · Demo workspace</span></div>
-    <div class="sd" id="sd">
-      <aside class="sd-side">
-        <div class="sd-logo"><i></i>signaldesk.</div>
-        <div class="sd-ws"><b>M</b><div>Meridian Group<small>Business data workspace</small></div></div>
-        <div class="sd-lbl">YOUR WORKSPACE</div>
-        <button class="sd-nav" data-v="home" aria-current="true">Home</button>
-        <button class="sd-nav" data-v="library" aria-current="false">Data Library <em>15</em></button>
-        <button class="sd-nav" data-v="dash" aria-current="false">Executive Dashboard</button>
-        <div class="sd-lbl">COMPANY SCOPE</div>
-        <div class="sd-cos"><button class="sd-co" data-co="all" aria-pressed="true"><i style="background:#fff"></i>All companies</button>${COS.map(c => `<button class="sd-co" data-co="${c.k}" aria-pressed="false"><i style="background:${c.c === '#0a0a0a' ? '#fff' : c.c}"></i>${c.n}</button>`).join('')}</div>
-        <div class="sd-priv"><b>Your files stay here.</b>This demo stores data in your browser. No cloud accounts connected.<span>DEMO WORKSPACE</span></div>
-        <div class="sd-user"><b>AM</b><div>Alex Morgan<small>Workspace owner</small></div></div>
-      </aside>
-      <div class="sd-main"><div class="sd-top"><span>Workspace › <b id="sdCrumb" style="color:#0a0a0a;font-weight:500">Home</b></span><span class="sd-search">⌕ Find a file or dataset <kbd>⌘K</kbd></span></div>
-        <div class="sd-body" id="sdBody"></div>
-        <div class="sd-foot"><span>Local demo · No cloud accounts connected</span><span>Your business, in focus.</span></div></div>
-    </div></div>
-    <p class="mono muted" style="margin-top:16px;text-align:center">Interactive preview with fictional demo data · switch views and companies in the sidebar</p>
+    <div class="sd-tabs" role="group" aria-label="Demo view">
+      <button aria-pressed="true" data-view="home" data-img="assets/sd/home.webp">Home</button>
+      <button aria-pressed="false" data-view="library" data-img="assets/sd/library.webp">Data Library</button>
+      <button aria-pressed="false" data-view="dashboard" data-img="assets/sd/dashboard.webp">Executive Dashboard</button>
+    </div>
+    <div class="browser rv">
+      <div class="browser__bar"><i></i><i></i><i></i><span class="browser__url" id="sdUrl">signaldesk.mahir.design</span><a class="browser__open ulink" id="sdOpen" href="${SD}" target="_blank" rel="noopener">Full screen ↗</a></div>
+      <div class="browser__view" id="sdView"><img id="sdImg" src="assets/sd/home.webp" alt="SignalDesk home screen"></div>
+    </div>
+    <p class="mono muted sd-live-note">Live product with demo data · click around, nothing you do changes real records</p>
   </div></section>
   <section class="sec"><div class="wrap">
-    <div class="sechead"><h2 class="h-lg">What it <span class="serif" style="font-weight:400">does</span></h2><div class="sechead__r"><p class="lede">Built for owners and operators who need answers, not another spreadsheet.</p></div></div>
-    <div class="feat">
-      <div class="rv"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/></svg><h4>One data library</h4><p>Upload CSV and PDF files and see which ones are ready, mapped to the dashboard, or need a second look.</p></div>
-      <div class="rv"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h4>Executive dashboard</h4><p>Revenue, completed jobs, active customers, outstanding invoices and completion rate, calculated from your own records.</p></div>
-      <div class="rv"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg><h4>Every company, one view</h4><p>Switch between companies or see them all together. Revenue by company keeps the whole group in the same picture.</p></div>
-      <div class="rv"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16v1"/></svg><h4>Data health</h4><p>Missing or invalid values get flagged, like an employee file without an email address, before they skew the numbers.</p></div>
-      <div class="rv"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 3v18M3 12h18"/></svg><h4>Revenue vs. target</h4><p>Actual revenue against the plan behind it, so progress reads as a percentage, not a guess.</p></div>
-      <div class="rv"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h4>Private by design</h4><p>Files are processed locally in the demo. No cloud accounts need to be connected to get started.</p></div>
+    <div class="sechead"><h2 class="h-lg">How it <span class="serif" style="font-weight:400">works</span></h2><div class="sechead__r"><p class="lede">Up and running with the files you already have.</p></div></div>
+    <div class="steps3">
+      <div class="rv"><span class="mono muted">01</span><h4>Bring your files</h4><p>Job schedules, invoices, customer lists. CSV or PDF, from every company you run.</p></div>
+      <div class="rv"><span class="mono muted">02</span><h4>Map once</h4><p>Each file is checked and mapped, with missing or invalid values flagged before they skew anything.</p></div>
+      <div class="rv"><span class="mono muted">03</span><h4>See the picture</h4><p>Revenue, jobs, customers and invoices in one dashboard, per company or all together.</p></div>
     </div>
-  </div></section>`;
+  </div></section>
+  <section class="sec" style="padding-top:0"><div class="wrap">
+    <div class="sechead"><h2 class="h-lg">What you <span class="serif" style="font-weight:400">get</span></h2><div class="sechead__r"><p class="lede">Built for owners and operators who need answers, not another spreadsheet.</p></div></div>
+    <div class="feat">
+      <div class="rv"><svg viewBox="0 0 24 24"><path d="M4 4h10l6 6v10H4z"/><path d="M14 4v6h6"/></svg><h4>One data library</h4><p>Every file in one place, with what's ready, mapped, or needs a second look.</p></div>
+      <div class="rv"><svg viewBox="0 0 24 24"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><h4>Executive dashboard</h4><p>Revenue, completed jobs, active customers, outstanding invoices and completion rate.</p></div>
+      <div class="rv"><svg viewBox="0 0 24 24"><circle cx="7" cy="12" r="3"/><circle cx="17" cy="7" r="3"/><circle cx="17" cy="17" r="3"/></svg><h4>Every company, one view</h4><p>Switch between companies or see the whole group together.</p></div>
+      <div class="rv"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16v1"/></svg><h4>Data health</h4><p>Missing or invalid values are flagged before they reach the numbers.</p></div>
+      <div class="rv"><svg viewBox="0 0 24 24"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M12 3v18M3 12h18"/></svg><h4>Revenue vs. target</h4><p>Actual revenue against the plan, so progress reads as a percentage.</p></div>
+      <div class="rv"><svg viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg><h4>Private by design</h4><p>Your files stay yours. No cloud accounts needed to get started.</p></div>
+    </div>
+  </div></section>
+  <section class="endcta"><div class="wrap"><span class="label" style="justify-content:center">( See it with your data )</span><h2 class="h-lg">Want SignalDesk for <span class="serif" style="font-weight:400">your business?</span></h2><a href="https://cal.com/mahirakash/15min" target="_blank" rel="noopener" class="btn btn--ink">Book a demo call <span class="arr">→</span></a></div></section>`;
 }
+function sdInit() {
+  const SD = 'https://signaldesk.mahir.design';
+  const view = $('#sdView'); if (!view) return;
+  const live = matchMedia('(min-width: 900px)').matches;
+  let frame = null;
+  const fitFrame = () => { if (frame) frame.style.transform = `scale(${view.clientWidth / 1456})`; };
+  const show = btn => {
+    $$('.sd-tabs button').forEach(b => b.setAttribute('aria-pressed', String(b === btn)));
+    const v = btn.dataset.view, url = v === 'home' ? SD + '/' : `${SD}/demo?view=${v}`;
+    $('#sdUrl').textContent = url.replace('https://', '');
+    $('#sdOpen').href = url;
+    if (live) {
+      if (!frame) { frame = document.createElement('iframe'); frame.title = 'SignalDesk live demo'; frame.loading = 'lazy'; view.innerHTML = ''; view.append(frame); fitFrame(); }
+      frame.src = url;
+    } else { const img = $('#sdImg'); img.src = btn.dataset.img; img.alt = `SignalDesk ${btn.textContent} screen`; }
+  };
+  $$('.sd-tabs button').forEach(b => b.addEventListener('click', () => show(b)));
+  if (live) { show($('.sd-tabs button')); new ResizeObserver(fitFrame).observe(view); }
+}
+window.sdInit = sdInit;
 
 /* ---------- smooth scroll ---------- */
 let lenis = null;
@@ -382,7 +402,7 @@ function showHome(anchor, smooth) {
   if (el) requestAnimationFrame(() => requestAnimationFrame(() => scrollToEl(el, fromPage || !smooth)));
   else if (anchor === 'top') scrollToEl(0, fromPage);
 }
-function route(smooth) { const h = decodeURIComponent((location.hash || '').slice(1)); if (isPage(h)) showPage(h); else showHome(h, smooth); }
+function route(smooth) { const ph = location.pathname.replace(/^\/+|\/+$/g, ''); const h = decodeURIComponent((location.hash || '').slice(1)) || (isPage(ph) ? ph : ''); if (isPage(h)) showPage(h); else showHome(h, smooth); }
 document.addEventListener('click', e => {
   const a = e.target.closest('a[href^="#"]'); if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey) return;
   const h = a.getAttribute('href'); if (h === '#') return;
@@ -396,6 +416,6 @@ addEventListener('popstate', () => route(false));
 addEventListener('hashchange', () => route(false));
 
 homeMotion();
-if (location.hash) route(false);
+if (location.hash || location.pathname.length > 1) route(false);
 runLoader();
 })();

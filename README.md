@@ -1,6 +1,6 @@
 # mahir.design (v2)
 
-Personal portfolio of Mahir Abrar Akash. Static site, no build step: white/black editorial design, Geist + Instrument Serif, GSAP + Lenis from CDN.
+Personal portfolio of Mahir Abrar Akash. Static site, no build step: white/black editorial design, Bricolage Grotesque + Fraunces, GSAP + Lenis from CDN.
 
 ## Pages (hash routes, one `index.html`)
 | Route | Page | Linked from the site? |
