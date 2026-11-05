@@ -539,3 +539,17 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .hs__title .line-mask{padding-bottom:.04em}
 .hs__out{font-size:1.08em;line-height:.95;letter-spacing:-.025em}
 @media (max-width:900px){.hs__title{font-size:clamp(42px,12.5vw,84px)}}
+
+/* ---------- Poppins for every title ---------- */
+h1,h2,h3,h4,.h-xl,.h-lg,.h-md,.hero__need,.about__big,.wrow__t,.svc__t,.contact__big,.pg-title,.nextcase__name,.loader__num,.sheet nav a,.fwm .foot__big,.callcard h3,.cs h2{font-family:"Poppins",var(--f-d);font-stretch:100%;font-variation-settings:normal}
+.h-xl,.h-lg,.hero__need,.wrow__t,.contact__big,.pg-title,.nextcase__name,.loader__num,.sheet nav a,.how__item h3,.dash__copy h3,.mcard h3,.steps3 h4{font-weight:600;letter-spacing:-.035em;line-height:1.02}
+.h-md,.about__big,.svc__t,.callcard h3,.cs h2,.tgroup__head h3{font-weight:500;letter-spacing:-.025em;line-height:1.12}
+.h-xl{font-size:clamp(46px,8vw,146px)}
+.contact__big{font-size:clamp(48px,9.4vw,180px)}
+.nextcase__name{font-size:clamp(48px,9.4vw,172px)}
+.pg-title{font-size:clamp(40px,6.6vw,120px)}
+.fwm .foot__big{font-weight:600;letter-spacing:-.05em;line-height:.9}
+/* room for descenders (g, y, p) inside line masks */
+.line-mask{padding-bottom:.16em;margin-bottom:-.16em}
+.hs__title{letter-spacing:-.035em}
+.hs__title .line-mask{padding-bottom:.18em;margin-bottom:-.16em}
