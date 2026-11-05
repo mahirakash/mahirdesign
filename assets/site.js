@@ -13,9 +13,8 @@ if (MOTION) document.documentElement.classList.add('motion');
 /* ---------- settings ---------- */
 const CONFIG = {
   whatsapp: '8801843547482',
-  // Form submissions are emailed via FormSubmit (formsubmit.co, free, no account).
-  // After activation, swap the address for the random alias FormSubmit emails you, to keep it out of the source.
-  formTo: 'mahir.akash@gmail.com'
+  // Web3Forms access key (web3forms.com, free): submissions arrive by email. Empty = WhatsApp fallback.
+  web3formsKey: ''
 };
 
 /* ---------- data: case studies ---------- */
@@ -316,14 +315,14 @@ $('#form').addEventListener('submit', async e => {
   const f = e.target, msg = $('#formMsg'), d = Object.fromEntries(new FormData(f));
   if (!d.name || !d.email || !/^\S+@\S+\.\S+$/.test(d.email) || !d.message) { msg.className = 'form__msg err'; msg.textContent = 'Please add your name, a valid email and a few lines about the project.'; return; }
   const text = `Hi Mahir, I'm ${d.name} (${d.email}).\nI'm a ${d.role}, looking for: ${d.service}. Budget: ${d.budget}.\n\n${d.message}`;
-  if (CONFIG.formTo) {
+  if (CONFIG.web3formsKey) {
     msg.className = 'form__msg'; msg.textContent = 'Sending…';
     const btn = f.querySelector('[type=submit]'); if (btn) btn.disabled = true;
     try {
-      const res = await fetch('https://formsubmit.co/ajax/' + CONFIG.formTo, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-        body: JSON.stringify({ name: d.name, email: d.email, "I'm a": d.role, Service: d.service, Budget: d.budget, Message: d.message, _replyto: d.email, _subject: `New project enquiry from ${d.name} — mahir.design`, _template: 'table', _captcha: 'false', _honey: d._honey || '' }) });
+      const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ access_key: CONFIG.web3formsKey, from_name: 'mahir.design', subject: `New project enquiry from ${d.name}`, replyto: d.email, botcheck: d._honey || '', name: d.name, email: d.email, "I'm a": d.role, Service: d.service, Budget: d.budget, Message: d.message }) });
       const j = await res.json(); if (btn) btn.disabled = false;
-      if (String(j.success) === 'true') { f.reset(); msg.className = 'form__msg ok'; msg.textContent = 'Thank you! Your submission has been received!'; return; }
+      if (j.success) { f.reset(); msg.className = 'form__msg ok'; msg.textContent = 'Thank you! Your submission has been received!'; return; }
       throw new Error();
     } catch (_) { if (btn) btn.disabled = false; msg.className = 'form__msg err'; msg.textContent = 'Oops! Something went wrong while submitting the form. Opening WhatsApp instead…'; }
   }
