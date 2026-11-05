@@ -533,3 +533,9 @@ fieldset{border:0;margin:0;padding:0;min-width:0}
 .nav.is-glass{mix-blend-mode:normal;color:var(--ink);padding-top:12px;padding-bottom:12px}
 .nav.is-glass::before{opacity:1}
 .nav.is-glass .nav__mid i{background:var(--ink)}
+
+/* ---------- hero title: Poppins ---------- */
+.hs__title{font-family:"Poppins",var(--f-d);font-stretch:100%;font-variation-settings:normal;font-weight:600;text-transform:none;font-size:clamp(46px,6.1vw,116px);line-height:1.02;letter-spacing:-.045em}
+.hs__title .line-mask{padding-bottom:.04em}
+.hs__out{font-size:1.08em;line-height:.95;letter-spacing:-.025em}
+@media (max-width:900px){.hs__title{font-size:clamp(42px,12.5vw,84px)}}
